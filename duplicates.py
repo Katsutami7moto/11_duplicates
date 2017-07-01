@@ -6,9 +6,8 @@ File = namedtuple('File', 'name size dir_path')
 Duplicate = namedtuple('Duplicate', 'name size all_paths')
 
 
-def find_duplicates(source_path: str) -> list:
+def check_files(source_path: str) -> list:
     files_to_check = []
-    duplicates = []
 
     for root, dirs, files in os.walk(source_path):
         if files:
@@ -16,6 +15,12 @@ def find_duplicates(source_path: str) -> list:
                 file_size = getsize(join(root, file))
                 new_file = File(file, file_size, root)
                 files_to_check.append(new_file)
+
+    return files_to_check
+
+
+def find_duplicates(files_to_check: list) -> list:
+    duplicates = []
 
     for first_file in files_to_check:
         paths = []
@@ -53,4 +58,4 @@ if __name__ == '__main__':
         if not exists(given_path):
             print('This path does not exist.')
             continue
-        print_duplicates(find_duplicates(given_path))
+        print_duplicates(find_duplicates(check_files(given_path)))
