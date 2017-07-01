@@ -7,7 +7,17 @@ Duplicate = namedtuple('Duplicate', 'name size all_paths')
 
 
 def find_duplicates(source_path: str) -> list:
-    pass
+    files_to_check = []
+    duplicates = []
+
+    for root, dirs, files in os.walk(source_path):
+        if files:
+            for file in files:
+                file_size = getsize(join(root, file))
+                new_file = File(file, file_size, root)
+                files_to_check.append(new_file)
+
+    return duplicates
 
 
 def print_duplicates(duplicates: list):
