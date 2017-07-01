@@ -1,6 +1,6 @@
 # Anti-Duplicator
 
-[TODO. There will be project description]
+Follow the instructions provided by the script. To quit the script hit Enter without typing anything.
 
 # Project Goals
 

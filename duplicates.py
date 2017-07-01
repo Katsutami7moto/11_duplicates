@@ -41,9 +41,16 @@ def print_duplicates(duplicates: list):
             print(file_string.format(duplicate.name, duplicate.size, len(duplicate.all_paths)))
             print('These are the paths to all copies of this file:')
             for number, path in enumerate(duplicate.all_paths):
-                print('{0}. {1}'.format(number + 1, os.path.join(path, duplicate.name)))
+                print('{0}. {1}'.format(number + 1, join(path, duplicate.name)))
     else:
         print('There are no duplicates in this directory and its sub-directories.')
 
 if __name__ == '__main__':
-    pass
+    while True:
+        given_path = input('\nEnter the path to a directory that you want to check for duplicate files: ')
+        if not given_path:
+            break
+        if not exists(given_path):
+            print('This path does not exist.')
+            continue
+        print_duplicates(find_duplicates(given_path))
