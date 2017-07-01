@@ -17,6 +17,20 @@ def find_duplicates(source_path: str) -> list:
                 new_file = File(file, file_size, root)
                 files_to_check.append(new_file)
 
+    for first_file in files_to_check:
+        paths = []
+        for other_file in files_to_check:
+            if first_file.name == other_file.name and \
+                            first_file.size == other_file.size and \
+                            first_file.dir_path != other_file.dir_path:
+                paths.append(other_file.dir_path)
+                files_to_check.remove(other_file)
+        if paths:
+            paths.insert(0, first_file.dir_path)
+            new_duplicate = Duplicate(first_file.name, first_file.size, paths)
+            duplicates.append(new_duplicate)
+        files_to_check.remove(first_file)
+
     return duplicates
 
 
